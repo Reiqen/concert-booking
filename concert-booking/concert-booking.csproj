@@ -74,7 +74,32 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\ConcertBL.cs" />
+    <Compile Include="BLL\FeedbackBL.cs" />
+    <Compile Include="BLL\IConcertBL.cs" />
+    <Compile Include="BLL\IFeedbackBL.cs" />
+    <Compile Include="BLL\IImageBL.cs" />
+    <Compile Include="BLL\ImageBL.cs" />
+    <Compile Include="BLL\IMessageBL.cs" />
+    <Compile Include="BLL\IRoleBL.cs" />
+    <Compile Include="BLL\IUserBL.cs" />
+    <Compile Include="BLL\MessageBL.cs" />
+    <Compile Include="BLL\RoleBL.cs" />
+    <Compile Include="BLL\UserBL.cs" />
+    <Compile Include="Checkers\ObjectValidation.cs" />
     <Compile Include="DAL\ConcertDAO.cs" />
+    <Compile Include="DAL\FeedbackDAO.cs" />
+    <Compile Include="DAL\IConcertDAO.cs" />
+    <Compile Include="DAL\IFeedbackDAO.cs" />
+    <Compile Include="DAL\IImageDAO.cs" />
+    <Compile Include="DAL\ImageDAO.cs" />
+    <Compile Include="DAL\IMessageDAO.cs" />
+    <Compile Include="DAL\IRoleDAO.cs" />
+    <Compile Include="DAL\IUserDAO.cs" />
+    <Compile Include="DAL\MessageDAO.cs" />
+    <Compile Include="DAL\RoleDAO.cs" />
+    <Compile Include="DAL\UserDAO.cs" />
+    <Compile Include="Dependencies\DependencyResolver.cs" />
     <Compile Include="Entities\Concert.cs" />
     <Compile Include="Entities\Feedback.cs" />
     <Compile Include="Entities\Image.cs" />
