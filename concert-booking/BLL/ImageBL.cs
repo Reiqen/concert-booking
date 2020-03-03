@@ -1,6 +1,6 @@
-﻿using static concert_booking.Checkers.ObjectValidation;
+﻿using static concert_booking.Common.Checkers.ObjectValidation;
 using concert_booking.DAL;
-using concert_booking.Entities;
+using concert_booking.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +13,10 @@ namespace concert_booking.BLL
         private readonly IImageDAO _imageDAO;
         private readonly IConcertDAO _concertDAO;
 
-        public ImageBL(IImageDAO imageDAO)
+        public ImageBL(IImageDAO imageDAO, IConcertDAO concertDAO)
         {
             _imageDAO = imageDAO;
+            _concertDAO = concertDAO;
         }
         public void CreateImage(int concertID, byte[] imageBytes)
         {

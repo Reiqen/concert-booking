@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/PL/Shared/_Layout.cshtml";
+}
+
+    <div>
+        <p>Role: </p>
+        @if (User.IsInRole("Guest"))
+        {
+            <p>Guest</p>
+        }
+        else if (User.IsInRole("Registered"))
+        {
+            <p>Registered</p>
+        }
+        else if (User.IsInRole("Administrator"))
+        {
+            <p>Administrator</p>
+        }
+        <button onclick="location.href = '/PL/signout';">Sign Out</button>
+    </div>

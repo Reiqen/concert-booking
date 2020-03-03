@@ -1,6 +1,6 @@
-﻿using static concert_booking.Checkers.ObjectValidation;
+﻿using static concert_booking.Common.Checkers.ObjectValidation;
 using concert_booking.DAL;
-using concert_booking.Entities;
+using concert_booking.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +14,10 @@ namespace concert_booking.BLL
         private readonly IMessageDAO _messageDAO;
         private readonly IUserDAO _userDAO;
 
-        public MessageBL(IMessageDAO messageDAO)
+        public MessageBL(IMessageDAO messageDAO, IUserDAO userDAO)
         {
             _messageDAO = messageDAO;
+            _userDAO = userDAO;
         }
         public void CreateMessage(int fromID, int toID, string dateString, string subject, string text, byte[] pictureBytes)
         {

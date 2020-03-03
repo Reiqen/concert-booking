@@ -1,4 +1,4 @@
-﻿using concert_booking.Entities;
+﻿using concert_booking.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

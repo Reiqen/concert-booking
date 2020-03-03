@@ -1,6 +1,6 @@
-﻿using static concert_booking.Checkers.ObjectValidation;
+﻿using static concert_booking.Common.Checkers.ObjectValidation;
 using concert_booking.DAL;
-using concert_booking.Entities;
+using concert_booking.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +15,11 @@ namespace concert_booking.BLL
         private readonly IConcertDAO _concertDAO;
         private readonly IUserDAO _userDAO;
 
-        public FeedbackBL(IFeedbackDAO feedbackDAO)
+        public FeedbackBL(IFeedbackDAO feedbackDAO, IConcertDAO concertDAO, IUserDAO userDAO)
         {
             _feedbackDAO = feedbackDAO;
+            _concertDAO = concertDAO;
+            _userDAO = userDAO;
         }
         public void CreateFeedback(int concertID, int userID, string dateString, string text)
         {

@@ -1,6 +1,6 @@
-﻿using static concert_booking.Checkers.ObjectValidation;
+﻿using static concert_booking.Common.Checkers.ObjectValidation;
 using concert_booking.DAL;
-using concert_booking.Entities;
+using concert_booking.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

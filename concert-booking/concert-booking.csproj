@@ -44,6 +44,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -53,6 +56,24 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -71,6 +92,7 @@
     <Content Include="App_Data\ConcertDatabase_log.ldf">
       <DependentUpon>ConcertDatabase.mdf</DependentUpon>
     </Content>
+    <Content Include="PL\Shared\Header.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -86,7 +108,7 @@
     <Compile Include="BLL\MessageBL.cs" />
     <Compile Include="BLL\RoleBL.cs" />
     <Compile Include="BLL\UserBL.cs" />
-    <Compile Include="Checkers\ObjectValidation.cs" />
+    <Compile Include="Common\Checkers\ObjectValidation.cs" />
     <Compile Include="DAL\ConcertDAO.cs" />
     <Compile Include="DAL\FeedbackDAO.cs" />
     <Compile Include="DAL\IConcertDAO.cs" />
@@ -99,17 +121,22 @@
     <Compile Include="DAL\MessageDAO.cs" />
     <Compile Include="DAL\RoleDAO.cs" />
     <Compile Include="DAL\UserDAO.cs" />
-    <Compile Include="Dependencies\DependencyResolver.cs" />
-    <Compile Include="Entities\Concert.cs" />
-    <Compile Include="Entities\Feedback.cs" />
-    <Compile Include="Entities\Image.cs" />
-    <Compile Include="Entities\Message.cs" />
-    <Compile Include="Entities\Role.cs" />
-    <Compile Include="Entities\User.cs" />
+    <Compile Include="Common\Dependencies\DependencyResolver.cs" />
+    <Compile Include="Common\Entities\Concert.cs" />
+    <Compile Include="Common\Entities\Feedback.cs" />
+    <Compile Include="Common\Entities\Image.cs" />
+    <Compile Include="Common\Entities\Message.cs" />
+    <Compile Include="Common\Entities\Role.cs" />
+    <Compile Include="Common\Entities\User.cs" />
+    <Compile Include="PL\Models\Roles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="PL\signout.cshtml" />
+    <Content Include="PL\Shared\_Layout.cshtml" />
+    <Content Include="PL\index.cshtml" />
+    <Content Include="PL\login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
