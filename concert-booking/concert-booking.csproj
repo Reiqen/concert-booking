@@ -137,6 +137,10 @@
     <Content Include="PL\Shared\_Layout.cshtml" />
     <Content Include="PL\index.cshtml" />
     <Content Include="PL\login.cshtml" />
+    <Content Include="PL\booking.cshtml" />
+    <Content Include="PL\album.cshtml" />
+    <Content Include="PL\help.cshtml" />
+    <Content Include="PL\account.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

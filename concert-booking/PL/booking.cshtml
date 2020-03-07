@@ -10,19 +10,3 @@
     </div>
 </div>
 <p class="text-white" style="text-align: right; margin-right: 5px;"><a class="text-white" href="/PL/account" style="color: white">@User.Identity.Name</a> | <a class="text-white" href="/PL/signout">Sign Out</a></p>
-<div>
-
-    <p>Role: </p>
-    @if (User.IsInRole("Guest"))
-    {
-        <p>Guest</p>
-    }
-    else if (User.IsInRole("Registered"))
-    {
-        <p>Registered</p>
-    }
-    else if (User.IsInRole("Administrator"))
-    {
-        <p>Administrator</p>
-    }
-</div>

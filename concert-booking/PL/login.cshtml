@@ -6,8 +6,6 @@
     IEnumerable<User> users = userBl.GetUsers();
     string login = null;
     string pass = null;
-    bool loginChecker = false;
-    bool passwordChecker = false;
     string signinErrorMessage = null;
     string signupErrorMessage = null;
     string registered = null;
@@ -44,28 +42,6 @@
             {
                 signinErrorMessage = e.Message;
             }
-            //foreach (var user in users)
-            //{
-            //    if (login == user.Username)
-            //    {
-            //        loginChecker = true;
-            //        if (pass == user.Password)
-            //        {
-            //            loginChecker = true;
-            //            FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
-            //            Response.Redirect("~/PL");
-            //        }
-            //    }
-            //}
-            //if (!loginChecker)
-            //{
-            //    signinErrorMessage = "No such user found.";
-
-            //}
-            //if (loginChecker && !passwordChecker)
-            //{
-            //    signinErrorMessage = "Wrong password.";
-            //}
         }
         else if (Request["GuestEnter"] == "true")
         {
@@ -95,7 +71,7 @@
     }
 }
 <br>
-<div class="row">
+<div>
     <div class="w-25 mx-auto">
 
         <ul class="nav nav-tabs nav-justified" id="loginTabs" role="tablist">
@@ -165,6 +141,5 @@
                 </form>
             </div>
         </div>
-
     </div>
 </div>

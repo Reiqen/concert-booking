@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "~/PL/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row" style="margin-top: 5px">
+        <div class="col-sm"><button type="button" class="btn btn-outline-warning btn-lg btn-block" onclick="location.href='/PL/index'">Bookings</button></div>
+        <div class="col-sm"><button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href='/PL/album'">Album</button></div>
+        <div class="col-sm"><button type="button" class="btn btn-outline-warning btn-lg btn-block" onclick="location.href='/PL/help'">Contact Information</button></div>
+    </div>
+</div>
+<p class="text-white" style="text-align: right; margin-right: 5px;"><a class="text-white" href="/PL/account" style="color: white">@User.Identity.Name</a> | <a class="text-white" href="/PL/signout">Sign Out</a></p>
