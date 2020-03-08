@@ -2,6 +2,8 @@
 @using concert_booking.Common.Entities;
 @{
     Layout = "~/PL/Shared/_Layout.cshtml";
+
+    string log;
     var userBl = DependencyResolver.UserBL;
     IEnumerable<User> users = userBl.GetUsers();
     string login = null;
@@ -24,6 +26,7 @@
     ariaSelected2 = "false";
     tabPane2 = "tab-pane fade";
 
+
     if (IsPost)
     {
         if (Request["UserEnter"] == "true")
@@ -41,6 +44,22 @@
             catch (ArgumentException e)
             {
                 signinErrorMessage = e.Message;
+                log = "Sign in failure. " + signinErrorMessage + " " + DateTime.Now;
+
+                try
+                {
+                    using (var writer = File.AppendText(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        writer.WriteLine(log);
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    using (StreamWriter sw = new StreamWriter(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        sw.WriteLine(log);
+                    }
+                }
             }
         }
         else if (Request["GuestEnter"] == "true")
@@ -66,6 +85,22 @@
             catch (ArgumentException e)
             {
                 signupErrorMessage = e.Message;
+                log = "Sign up failure. " + signupErrorMessage + " " + DateTime.Now;
+
+                try
+                {
+                    using (var writer = File.AppendText(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        writer.WriteLine(log);
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    using (StreamWriter sw = new StreamWriter(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        sw.WriteLine(log);
+                    }
+                }
             }
         }
     }

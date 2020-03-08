@@ -1,5 +1,198 @@
-﻿@{
+﻿@using concert_booking.Common.Dependencies;
+@using concert_booking.Common.Entities;
+@{
+
     Layout = "~/PL/Shared/_Layout.cshtml";
+
+    string log;
+    var webClient = new WebClient();
+    var concertBl = DependencyResolver.ConcertBL;
+    IEnumerable<Concert> concerts = concertBl.GetConcerts();
+
+    int concertID;
+    byte[] pictureBytes;
+    string title;
+    string description;
+    string additionErrorMessage = null;
+    string updatingErrorMessage = null;
+    string deletingErrorMessage = null;
+    string added = null;
+    string updated = null;
+    string deleted = null;
+
+    string navlink1;
+    string ariaSelected1;
+    string tabPane1;
+    string navlink2;
+    string ariaSelected2;
+    string tabPane2;
+    string navlink3;
+    string ariaSelected3;
+    string tabPane3;
+
+    navlink1 = "nav-link active";
+    ariaSelected1 = "true";
+    tabPane1 = "tab-pane fade show active";
+    navlink2 = "nav-link";
+    ariaSelected2 = "false";
+    tabPane2 = "tab-pane fade";
+    navlink3 = "nav-link";
+    ariaSelected3 = "false";
+    tabPane3 = "tab-pane fade";
+
+    if (IsPost)
+    {
+        if (Request["Addition"] == "true")
+        {
+            try
+            {
+                pictureBytes = webClient.DownloadData(Request.Form["picture"]);
+                title = Request.Form["title"];
+                description = Request.Form["description"];
+                concertBl.CreateConcert(pictureBytes, title, description);
+                added = "Added.";
+            }
+            catch (ArgumentException e)
+            {
+                additionErrorMessage = e.Message;
+                log = "Concert addition failure. " + additionErrorMessage + " " + DateTime.Now;
+
+                try
+                {
+                    using (var writer = File.AppendText(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        writer.WriteLine(log);
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    using (StreamWriter sw = new StreamWriter(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        sw.WriteLine(log);
+                    }
+                }
+            }
+        }
+        else if (Request["Updating"] == "true")
+        {
+            navlink1 = "nav-link";
+            ariaSelected1 = "false";
+            tabPane1 = "tab-pane fade";
+            navlink2 = "nav-link active";
+            ariaSelected2 = "true";
+            tabPane2 = "tab-pane fade show active";
+            navlink3 = "nav-link";
+            ariaSelected3 = "false";
+            tabPane3 = "tab-pane fade";
+            try
+            {
+                concertID = int.Parse(Request.Form["id"]);
+                pictureBytes = webClient.DownloadData(Request.Form["picture"]);
+                title = Request.Form["title"];
+                description = Request.Form["description"];
+                concertBl.UpdateConcert(concertID, pictureBytes, title, description);
+                updated = "Updated.";
+            }
+            catch (FormatException e)
+            {
+                updatingErrorMessage = "Can't parse to integer.";
+                log = "Concert updating failure. " + updatingErrorMessage + " " + DateTime.Now;
+
+                try
+                {
+                    using (var writer = File.AppendText(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        writer.WriteLine(log);
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    using (StreamWriter sw = new StreamWriter(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        sw.WriteLine(log);
+                    }
+                }
+            }
+            catch (ArgumentException e)
+            {
+                updatingErrorMessage = e.Message;
+                log = "Concert updating failure. " + updatingErrorMessage + " " + DateTime.Now;
+
+                try
+                {
+                    using (var writer = File.AppendText(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        writer.WriteLine(log);
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    using (StreamWriter sw = new StreamWriter(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        sw.WriteLine(log);
+                    }
+                }
+            }
+        }
+        else if (Request["Deleting"] == "true")
+        {
+            navlink1 = "nav-link";
+            ariaSelected1 = "false";
+            tabPane1 = "tab-pane fade";
+            navlink2 = "nav-link";
+            ariaSelected2 = "false";
+            tabPane2 = "tab-pane fade";
+            navlink3 = "nav-link active";
+            ariaSelected3 = "true";
+            tabPane3 = "tab-pane fade show active";
+            try
+            {
+                concertID = int.Parse(Request.Form["id"]);
+                concertBl.DeleteConcert(concertID);
+                deleted = "Deleted.";
+            }
+            catch (FormatException e)
+            {
+                deletingErrorMessage = "Can't parse to integer.";
+                log = "Concert deleting failure. " + deletingErrorMessage + " " + DateTime.Now;
+
+                try
+                {
+                    using (var writer = File.AppendText(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        writer.WriteLine(log);
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    using (StreamWriter sw = new StreamWriter(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        sw.WriteLine(log);
+                    }
+                }
+            }
+            catch (ArgumentException e)
+            {
+                deletingErrorMessage = e.Message;
+                log = "Concert deleting failure. " + deletingErrorMessage + " " + DateTime.Now;
+
+                try
+                {
+                    using (var writer = File.AppendText(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        writer.WriteLine(log);
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    using (StreamWriter sw = new StreamWriter(HttpRuntime.AppDomainAppPath + @"PL\logs.txt"))
+                    {
+                        sw.WriteLine(log);
+                    }
+                }
+            }
+        }
+    }
 }
 
 <div class="container-fluid">
@@ -11,18 +204,118 @@
 </div>
 <p class="text-white" style="text-align: right; margin-right: 5px;"><a class="text-white" href="/PL/account" style="color: white">@User.Identity.Name</a> | <a class="text-white" href="/PL/signout">Sign Out</a></p>
 <div>
+    <p class="text-white">Booking content is yet to come.</p>
+    @if (User.IsInRole("Administrator"))
+    {
+        <div>
+            <div class="w-50 mx-auto">
 
-    <p>Role: </p>
-    @if (User.IsInRole("Guest"))
-    {
-        <p>Guest</p>
-    }
-    else if (User.IsInRole("Registered"))
-    {
-        <p>Registered</p>
-    }
-    else if (User.IsInRole("Administrator"))
-    {
-        <p>Administrator</p>
+                <ul class="nav nav-tabs nav-justified" id="concertTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="@navlink1" id="create-tab" data-toggle="tab" href="#create" role="tab" aria-controls="create" aria-selected="@ariaSelected1">Add a concert</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="@navlink2" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="@ariaSelected2">Update a concert</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="@navlink3" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="@ariaSelected3">Delete a concert</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="@tabPane1" id="create" role="tabpanel" aria-labelledby="create-tab" align="center">
+                        <form method="post">
+                            @if (additionErrorMessage != null)
+                            {
+                                <p class="text-danger">@additionErrorMessage</p>
+                            }
+                            else if (added != null)
+                            {
+                                <p class="text-success">@added</p>
+                            }
+                            else
+                            {
+                                <br>
+                            }
+                            <table>
+                                <tr>
+                                    <td align="right"><label class="text-white" for="picture">Picture link:</label></td>
+                                    <td align="left"><input type="text" name="picture" value="@Request.Form["picture"]"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><label class="text-white" for="title">Title:</label></td>
+                                    <td align="left"><input type="text" name="title" value="@Request.Form["title"]"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><label class="text-white" for="description">Description:</label></td>
+                                    <td align="left"><textarea rows="10" name="description" value="@Request.Form["description"]"></textarea></td>
+                                </tr>
+                            </table>
+                            <input type="hidden" name="Addition" value="true">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                    <div class="@tabPane2" id="update" role="tabpanel" aria-labelledby="update-tab" align="center">
+                        <form method="post">
+                            @if (updatingErrorMessage != null)
+                            {
+                                <p class="text-danger">@updatingErrorMessage</p>
+                            }
+                            else if (updated != null)
+                            {
+                                <p class="text-success">@updated</p>
+                            }
+                            else
+                            {
+                                <br>
+                            }
+                            <table>
+                                <tr>
+                                    <td align="right"><label class="text-white" for="id">Concert ID:</label></td>
+                                    <td align="left"><input type="text" name="id" value="@Request.Form["id"]"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><label class="text-white" for="picture">Picture link:</label></td>
+                                    <td align="left"><input type="text" name="picture" value="@Request.Form["picture"]"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><label class="text-white" for="title">Title:</label></td>
+                                    <td align="left"><input type="text" name="title" value="@Request.Form["title"]"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><label class="text-white" for="description">Description:</label></td>
+                                    <td align="left"><textarea rows="10" name="description" value="@Request.Form["description"]"></textarea></td>
+                                </tr>
+                            </table>
+                            <input type="hidden" name="Updating" value="true">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                    <div class="@tabPane3" id="delete" role="tabpanel" aria-labelledby="delete-tab" align="center">
+                        <form method="post">
+                            @if (deletingErrorMessage != null)
+                            {
+                                <p class="text-danger">@deletingErrorMessage</p>
+                            }
+                            else if (deleted != null)
+                            {
+                                <p class="text-success">@deleted</p>
+                            }
+                            else
+                            {
+                                <br>
+                            }
+                            <table>
+                                <tr>
+                                    <td align="right"><label class="text-white" for="id">Concert ID:</label></td>
+                                    <td align="left"><input type="text" name="id" value="@Request.Form["id"]"></td>
+                                </tr>
+                            </table>
+                            <input type="hidden" name="Deleting" value="true">
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 </div>
